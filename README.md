@@ -66,7 +66,7 @@
 
 ### 📈 一點誠實的自白：關於統計可信度
 
-老實說，這只是一個做了四次的小型實驗。在統計學上，我們沒有得到「顯著」的結論。不過作為一個探索性的個人研究，這些趨勢已經足夠提供一些參考。[^2]
+老實說，這只是一個做了四次的小型實驗。在統計學上，我們沒有得到「顯著」的結論。不過作為一個探索性的個人研究，這些趨勢已經足夠提供一些參考。[^1]
 
 ---
 
@@ -84,11 +84,23 @@
 
 - Fisher's Exact Test：因為樣本數小，不適合用 Chi-Squared Test。不過用 Fisher's Exact Test 得到的結果仍然不顯著，只能當作差異趨勢參考。
 
-完整的分析腳本和數據都放在專案資料夾裡，有興趣的可以參考 `mandarin_exam_analysis_combined.R`。
+完整的分析程式碼和數據都放在 `mandarin_exam_analysis.R` 裡，有興趣的可以參考！
 
 ---
 
 ## Appendix 2: 原始數據
+
+單選題單純以答對或答錯衡量，多選題則以混淆矩陣（Confusion Matrix）呈現。原始的多選題有 5 個選項，分開計算寫了但錯（FP: False Positive）和對的沒答出來（True Negative: TN）（eg. 正解是 ABD，如果作答 BCE，B、E 就是 FP，A、D 就是 TN）
+
+> **關於「混淆矩陣」**
+> 我們可以利用混淆矩陣（Confusion Matrix）來呈現妹妹的答案（Prediction）與正確答案（Ground Truth）之間的關係。這是在機器學習分類問題常用的方法。
+>
+> - **欄（Columns）**: `True` 表示妹妹**有選**該選項；`False` 表示**沒選**。
+> - **列（Rows）**: `True` 表示該選項是**正確答案**；`False` 表示是**錯誤答案**。
+> - **（True, True）**: 答對的選項 （選了，且該選）
+> - **（False, True）**: 寫了但錯的選項 （選了，但不該選） （False Positive）
+> - **（True, False）**: 對的沒答出來的選項 （沒選，但該選） （False Negative）
+> - **（False, False）**: 錯的沒選
 
 ### 寫 45 分鐘（不檢查）- 第一次
 
@@ -163,16 +175,3 @@
 | True                      | 12   | 7     | 19        |
 | False                     | 6    | 10    | 16        |
 | **Total**                 | 18   | 17    | 35        |
-
-> **關於多選題表格（Confusion Matrix）**
-> 這個表格是一個「混淆矩陣」，用來呈現妹妹的答案（Prediction）與正確答案（Ground Truth）之間的關係。
->
-> - **欄（Columns）**: `True` 表示妹妹**有選**該選項；`False` 表示**沒選**。
-> - **列（Rows）**: `True` 表示該選項是**正確答案**；`False` 表示是**錯誤答案**。
-> - **（True, True）**: 答對的選項 （選了，且該選）
-> - **（False, True）**: 寫了但錯的選項 （選了，但不該選） （False Positive）
-> - **（True, False）**: 對的沒答出來的選項 （沒選，但該選） （False Negative）
-> - **（False, False）**: 錯的沒選
-
-[^1]: 原始的多選題有 5 個選項，分開計算寫了但錯（FP: False Positive）和對的沒答出來（True Negative: TN）（eg. 正解是 ABD，如果作答 BCE，B、E 就是 FP，A、D 就是 TN）
-[^2]: 統計上，這當然不構成顯著差異，但作為一個觀察趨勢的案例，已經非常有啟發性。
